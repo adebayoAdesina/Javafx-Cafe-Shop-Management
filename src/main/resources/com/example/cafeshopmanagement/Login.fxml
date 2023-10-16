@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -8,34 +11,45 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <AnchorPane layoutX="-1.0" prefHeight="400.0" prefWidth="300.0">
-               <children>
-                  <Label layoutX="40.0" layoutY="158.0" text="Login Account">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="40.0" layoutY="343.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Login" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="299.0" prefHeight="400.0" prefWidth="300.0">
-               <children>
-                  <Label layoutX="33.0" layoutY="65.0" text="Login Account">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="33.0" layoutY="140.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" />
-                  <PasswordField layoutX="33.0" layoutY="185.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
-                  <Button layoutX="33.0" layoutY="237.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Login" />
-               </children>
-            </AnchorPane>
-         </children>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cafeshopmanagement.Controller.LoginController">
+   <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="login_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
+         <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Login Account">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+         <TextField fx:id="login_username" layoutX="33.0" layoutY="140.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
+         <PasswordField fx:id="login_password" layoutX="33.0" layoutY="185.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
+         <Button fx:id="login_button" layoutX="33.0" layoutY="268.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Login" />
+         <Hyperlink fx:id="login_forget_password" layoutX="33.0" layoutY="234.0" text="Forget Password?" />
       </AnchorPane>
-   </children>
+      <AnchorPane fx:id="register_account_section" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
+         <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Register Account">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+         <TextField fx:id="register_account_username" layoutX="33.0" layoutY="112.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
+         <PasswordField fx:id="register_account_password" layoutX="33.0" layoutY="157.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
+         <Button fx:id="create_account_button" layoutX="33.0" layoutY="306.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Create Account" />
+         <ComboBox fx:id="register_account_question" layoutX="33.0" layoutY="202.0" prefHeight="30.0" prefWidth="220.0" promptText="Question" styleClass="textfield" />
+         <TextField fx:id="register_account_answer" layoutX="33.0" layoutY="246.0" prefHeight="30.0" prefWidth="220.0" promptText="Answer" styleClass="textfield" />
+      </AnchorPane>
+      <AnchorPane fx:id="side_form" layoutX="-1.0" prefHeight="400.0" prefWidth="300.0" styleClass="gradient">
+         <Label layoutX="89.0" layoutY="305.0" text="Create Account">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </Label>
+         <Button fx:id="side_create_account_button" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Create New Account" />
+         <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" layoutX="86.0" layoutY="182.0" size="10em" />
+         <Label layoutX="77.0" layoutY="200.0" text="Cafe Shop Management">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <Button fx:id="side_already_have_an_account" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Already have an account" visible="false" />
+      </AnchorPane>
+   </AnchorPane>
 </StackPane>

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class App extends Application {
     @Override
@@ -14,6 +13,8 @@ public class App extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Cafe Shop Management");
+            stage.setMinHeight(430);
+            stage.setMinWidth(610);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
