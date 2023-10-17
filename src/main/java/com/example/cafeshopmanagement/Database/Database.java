@@ -5,16 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-        private static final String URL = "jdbc:mysql://localhost:3306/Cafe_Shop_Management";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-    public static Connection connectionDB(){
-        try{
-            Class.forName("com.mysql.jdbc.Drive");
+        private static final String URL = "jdbc:sqlite:Cafe_Shop_Management.db";
+        private static final String USER = "root";
+        private static final String PASSWORD = "";
+        public static Connection connectionDB(){
+            try{
+               Class.forName("org.sqlite.JDBC");
 
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
-        }
+                return DriverManager.getConnection(URL);
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
     }
 }

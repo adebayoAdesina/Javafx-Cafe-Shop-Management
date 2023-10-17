@@ -1,5 +1,6 @@
 package com.example.cafeshopmanagement.Controller;
 
+import com.example.cafeshopmanagement.Database.Database;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,9 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -44,7 +48,7 @@ public class LoginController implements Initializable {
     ObservableList<String> observableList = FXCollections.observableArrayList(questionList);
 
     private Alert alert;
-    public void registrationButton() {
+    public void registrationButton() throws SQLException {
         if (register_account_username.getText().isEmpty() || register_account_password.getText().isEmpty()
             || register_account_question.getSelectionModel().getSelectedItem() == null || register_account_answer.getText().isEmpty()
         ) {
@@ -54,13 +58,65 @@ public class LoginController implements Initializable {
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
         } else  {
-            String regData = "INSERT INTO Employee (username, password, question, answer)";
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM");
+            String date = sdf.format(new Date());
+            String regData = "INSERT INTO Employee (username, password, question, answer, date) VALUES (?, ?, ?, ?, ?)";
+            connection = Database.connectionDB();
+
+            try{
+                preparedStatement = connection.prepareStatement(regData);
+                preparedStatement.setString(1, register_account_username.getText());
+                preparedStatement.setString(2, register_account_password.getText());
+                preparedStatement.setString(3, register_account_question.getSelectionModel().getSelectedItem());
+                preparedStatement.setString(4, register_account_answer.getText());
+                preparedStatement.setString(5, date);
+                preparedStatement.executeUpdate();
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Operation was successful!\nPlease Log in");
+
+                ButtonType closeButton = new ButtonType("Close", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(closeButton);
+
+                alert.showAndWait();
+                register_account_username.setText("");
+                register_account_answer.setText("");
+                register_account_password.setText("");
+                register_account_question.getSelectionModel().clearSelection();
+
+                translateTransition.setNode(side_form);
+                translateTransition.setToX(0);
+                translateTransition.setDuration(Duration.millis(1000));
+                translateTransition.play();
+                translateTransition.setOnFinished(e -> {
+                    side_already_have_an_account.setVisible(false);
+                    side_create_account_button.setVisible(true);
+                });
+//                if (resultSet.next()) {
+//                    System.out.println("Sent");
+//                } else {
+//                    System.out.println("Error");
+//                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                preparedStatement.close();
+//                resultSet.close();
+            }
         }
     }
+
+    public boolean isDBConnected() {
+        try {
+            return !connection.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    TranslateTransition translateTransition = new TranslateTransition();
     public void switchForm(ActionEvent event) {
-        TranslateTransition translateTransition = new TranslateTransition();
-
-
         if (event.getSource() == side_create_account_button) {
             translateTransition.setNode(side_form);
             translateTransition.setToX(300);
@@ -86,6 +142,12 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         register_account_question.setItems(observableList);
-        create_account_button.setOnAction(event -> registrationButton());
+        create_account_button.setOnAction(event -> {
+            try {
+                registrationButton();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
