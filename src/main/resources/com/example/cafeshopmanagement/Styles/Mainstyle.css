@@ -1,0 +1,64 @@
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #098c53, #246861);
+    -fx-alignment: center;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.header Label {
+    -fx-text-fill: #ffffff;
+}
+
+.nav-form {
+    -fx-background-color: linear-gradient(to bottom right, #0f6789, #286155);
+}
+
+.nav-form Label {
+    -fx-text-fill: #ffffff;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0.5;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+}
+
+.nav-btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.log-out {
+    -fx-background-color: #106abf;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-background-radius: 50px;
+}
+
+.log-out:hover {
+    -fx-background-color: #a71931;
+    -fx-cursor: hand;
+}
+
+.log-out FontAwesomeIconView {
+    -fx-fill: #ffffff;
+}
+
+.shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
+
+.white-background {
+    -fx-background-color: #ffffff;
+}
+
+.radius {
+    -fx-background-radius: 8px;
+}
+
+.transparent {
+    -fx-background-color: transparent;
+}

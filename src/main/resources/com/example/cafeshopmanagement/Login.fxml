@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cafeshopmanagement.Controller.LoginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cafeshopmanagement.Controller.LoginController" fx:id="rootNode">
     <AnchorPane prefHeight="200.0" prefWidth="200.0">
         <AnchorPane fx:id="login_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
             <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Login Account">
@@ -74,5 +74,6 @@
             </Label>
             <Button fx:id="side_already_have_an_account" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Already have an account" visible="false" />
         </AnchorPane>
+
     </AnchorPane>
 </StackPane>
