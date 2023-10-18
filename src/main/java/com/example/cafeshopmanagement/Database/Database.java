@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-        private static final String URL = "jdbc:sqlite:Cafe_Shop_Management.db";
+        private static final String URL = "jdbc:sqlite:cafeShopManagement.db";
         private static final String USER = "root";
         private static final String PASSWORD = "";
         public static Connection connectionDB(){

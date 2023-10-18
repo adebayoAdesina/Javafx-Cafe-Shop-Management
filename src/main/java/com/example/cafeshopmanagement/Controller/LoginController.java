@@ -35,6 +35,17 @@ public class LoginController implements Initializable {
     public AnchorPane side_form;
     public Button side_create_account_button;
     public Button side_already_have_an_account;
+    public TextField user_username;
+    public Button user_proceed;
+    public ComboBox<String> user_question;
+    public Button back_to_login;
+    public TextField user_answer;
+    public Button back_to;
+    public Button change_password;
+    public PasswordField confirm_password;
+    public PasswordField new_password;
+    public AnchorPane forget_password_section;
+    public AnchorPane forget_password_proceed_section;
 
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
@@ -49,6 +60,38 @@ public class LoginController implements Initializable {
 
     private Alert alert;
 
+    public  void proceedAction() {
+        if (user_username.getText().isEmpty() || user_question.getSelectionModel().getSelectedItem() == null || user_answer.getText().isEmpty() ) {
+            fillAllFieldError();
+        }
+        else {
+            String checkUsernameAndQuestion = "SELECT username, question, answer FROM Employee WHERE username = ? AND question = ? AND answer = ?";
+            connection = Database.connectionDB();
+            try{
+                preparedStatement = connection.prepareStatement(checkUsernameAndQuestion);
+                preparedStatement.setString(1, user_username.getText());
+                preparedStatement.setString(2, user_question.getSelectionModel().getSelectedItem());
+                preparedStatement.setString(3, user_answer.getText());
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    side_already_have_an_account.setVisible(false);
+                    side_create_account_button.setVisible(false);
+                    forget_password_section.setVisible(true);
+                    forget_password_proceed_section.setVisible(false);
+                    side_create_account_button.setVisible(true);
+                } else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect Username, Question or Answer");
+                    alert.showAndWait();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public void loginAction() {
 
         if (login_username.getText().isEmpty() || login_password.getText().isEmpty()) {
@@ -56,7 +99,7 @@ public class LoginController implements Initializable {
         } else if (login_password.getText().length() < 8) {
             invalidPassword();
         } else {
-            String confirmIfTrue = "SELECT username, password FROM Employee WHERE username = ? and password = ? ";
+            String confirmIfTrue = "SELECT username, password FROM Employee WHERE username = ? AND password = ? ";
             connection = Database.connectionDB();
             try {
                 preparedStatement = connection.prepareStatement(confirmIfTrue);
@@ -143,6 +186,13 @@ public class LoginController implements Initializable {
                 throw new RuntimeException(e);
             } finally {
                 preparedStatement.close();
+                if (connection != null) {
+                    try {
+                        connection.close(); // <-- This is important
+                    } catch (SQLException e) {
+                        /* handle exception */
+                    }
+                }
 //                resultSet.close();
             }
         }
@@ -185,6 +235,8 @@ public class LoginController implements Initializable {
         translateTransition.setOnFinished(e -> {
             side_already_have_an_account.setVisible(false);
             side_create_account_button.setVisible(true);
+            forget_password_section.setVisible(false);
+            forget_password_proceed_section.setVisible(false);
         });
     }
 
@@ -196,6 +248,8 @@ public class LoginController implements Initializable {
         translateTransition.setOnFinished(e -> {
             side_already_have_an_account.setVisible(true);
             side_create_account_button.setVisible(false);
+            forget_password_section.setVisible(false);
+            forget_password_proceed_section.setVisible(false);
         });
     }
 
@@ -207,9 +261,86 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
+    public void  forgetPasswordAction() {
+        side_already_have_an_account.setVisible(false);
+        side_create_account_button.setVisible(false);
+        forget_password_section.setVisible(false);
+        forget_password_proceed_section.setVisible(true);
+        side_create_account_button.setVisible(true);
+    }
+
+    public void backToLogin() {
+        side_already_have_an_account.setVisible(false);
+        side_create_account_button.setVisible(true);
+        forget_password_section.setVisible(false);
+        forget_password_proceed_section.setVisible(false);
+
+    }
+
+    public void changePasswordAction()  {
+        if (!new_password.getText().equals(confirm_password.getText())) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("New password and confirm password are not the same.");
+            alert.showAndWait();
+        } else if(new_password.getText().isEmpty() || confirm_password.getText().isEmpty()) {
+            fillAllFieldError();
+        }
+        else if(new_password.getText().length() < 8) {
+            invalidPassword();
+        } else {
+            String changePassword = "UPDATE Employee SET password = ? WHERE username = ?";
+
+            try {
+                preparedStatement = connection.prepareStatement(changePassword);
+                preparedStatement.setString(1, new_password.getText());
+                preparedStatement.setString(2, user_username.getText());
+                boolean rowsAffected = preparedStatement.execute();
+                System.out.println(rowsAffected);
+                if (rowsAffected) {
+                    System.out.println("Internal Error");
+
+                } else {
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Password Successfully Changed");
+                    alert.showAndWait();
+
+                    new_password.setText("");
+                    confirm_password.setText("");
+                    user_username.setText("");
+                    user_answer.setText("");
+                    user_question.getSelectionModel().clearSelection();
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+//                throw new RuntimeException(e);
+            }
+//            finally {
+//                try {
+//                    preparedStatement.close();
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                if (connection != null) {
+//                    try {
+//                        connection.close(); // <-- This is important
+//                    } catch (SQLException e) {
+//                        /* handle exception */
+//                    }
+//                }
+//            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         register_account_question.setItems(observableList);
+        user_question.setItems(observableList);
         create_account_button.setOnAction(event -> {
             try {
                 registrationButton();
@@ -218,6 +349,15 @@ public class LoginController implements Initializable {
             }
         });
         login_button.setOnAction(event -> loginAction());
+        login_forget_password.setOnAction(event -> forgetPasswordAction());
+        back_to_login.setOnAction(event -> backToLogin());
+        back_to.setOnAction(event -> backToLogin());
+        user_proceed.setOnAction(event -> proceedAction());
+        change_password.setOnAction(event -> {
+
+                changePasswordAction();
+
+        });
     }
 
 }

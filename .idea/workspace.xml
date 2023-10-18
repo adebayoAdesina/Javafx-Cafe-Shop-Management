@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ddef2a2-bac1-4dcc-b873-5ed0ecde15d8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cafe_Shop_Management.db" beforeDir="false" afterPath="$PROJECT_DIR$/Cafe_Shop_Management.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cafe_Shop_Management.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cafe_Shop_Management.sqbpro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/Login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,9 @@
       <workItem from="1697443995409" duration="19055000" />
       <workItem from="1697531132841" duration="12729000" />
       <workItem from="1697552299643" duration="1857000" />
-      <workItem from="1697571524048" duration="4061000" />
+      <workItem from="1697571524048" duration="4718000" />
+      <workItem from="1697615603408" duration="12122000" />
+      <workItem from="1697629755035" duration="5923000" />
     </task>
     <servers />
   </component>

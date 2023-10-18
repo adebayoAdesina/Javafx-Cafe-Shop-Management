@@ -12,44 +12,67 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cafeshopmanagement.Controller.LoginController">
-   <AnchorPane prefHeight="200.0" prefWidth="200.0">
-      <AnchorPane fx:id="login_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
-         <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Login Account">
-            <font>
-               <Font size="20.0" />
-            </font>
-         </Label>
-         <TextField fx:id="login_username" layoutX="33.0" layoutY="140.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
-         <PasswordField fx:id="login_password" layoutX="33.0" layoutY="185.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
-         <Button fx:id="login_button" layoutX="33.0" layoutY="268.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Login" />
-         <Hyperlink fx:id="login_forget_password" layoutX="33.0" layoutY="234.0" text="Forget Password?" />
-      </AnchorPane>
-      <AnchorPane fx:id="register_account_section" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
-         <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Register Account">
-            <font>
-               <Font size="20.0" />
-            </font>
-         </Label>
-         <TextField fx:id="register_account_username" layoutX="33.0" layoutY="112.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
-         <PasswordField fx:id="register_account_password" layoutX="33.0" layoutY="157.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
-         <Button fx:id="create_account_button" layoutX="33.0" layoutY="306.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Create Account" />
-         <ComboBox fx:id="register_account_question" layoutX="33.0" layoutY="202.0" prefHeight="30.0" prefWidth="220.0" promptText="Question" styleClass="textfield" />
-         <TextField fx:id="register_account_answer" layoutX="33.0" layoutY="246.0" prefHeight="30.0" prefWidth="220.0" promptText="Answer" styleClass="textfield" />
-      </AnchorPane>
-      <AnchorPane fx:id="side_form" layoutX="-1.0" prefHeight="400.0" prefWidth="300.0" styleClass="gradient">
-         <Label layoutX="89.0" layoutY="305.0" text="Create Account">
-            <font>
-               <Font size="20.0" />
-            </font>
-         </Label>
-         <Button fx:id="side_create_account_button" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Create New Account" />
-         <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" layoutX="86.0" layoutY="182.0" size="10em" />
-         <Label layoutX="77.0" layoutY="200.0" text="Cafe Shop Management">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Label>
-         <Button fx:id="side_already_have_an_account" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Already have an account" visible="false" />
-      </AnchorPane>
-   </AnchorPane>
+    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="login_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
+            <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Login Account">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <TextField fx:id="login_username" layoutX="33.0" layoutY="140.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
+            <PasswordField fx:id="login_password" layoutX="33.0" layoutY="185.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
+            <Button fx:id="login_button" layoutX="33.0" layoutY="268.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Login" />
+            <Hyperlink fx:id="login_forget_password" layoutX="33.0" layoutY="234.0" text="Forget Password?" />
+        </AnchorPane>
+        <AnchorPane fx:id="forget_password_proceed_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" visible="false">
+            <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Forget Password">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <TextField fx:id="user_username" layoutX="33.0" layoutY="115.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
+            <Button fx:id="user_proceed" layoutX="33.0" layoutY="267.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Proceed" />
+            <ComboBox fx:id="user_question" layoutX="33.0" layoutY="163.0" prefHeight="30.0" prefWidth="220.0" promptText="Question" styleClass="textfield" />
+            <TextField fx:id="user_answer" layoutX="33.0" layoutY="210.0" prefHeight="30.0" prefWidth="220.0" promptText="Answer" styleClass="textfield" />
+            <Button fx:id="back_to_login" layoutX="190.0" layoutY="344.0" mnemonicParsing="false" styleClass="login-btn" text="Log in" />
+        </AnchorPane>
+        <AnchorPane fx:id="forget_password_section" layoutX="299.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" visible="false">
+            <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Forget Password">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <Button fx:id="change_password" layoutX="33.0" layoutY="229.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Change Password" />
+            <Button fx:id="back_to" layoutX="190.0" layoutY="344.0" mnemonicParsing="false" styleClass="login-btn" text="Log in" />
+            <PasswordField fx:id="new_password" layoutX="33.0" layoutY="122.0" prefHeight="30.0" prefWidth="220.0" promptText="New Password" styleClass="textfield" />
+            <PasswordField fx:id="confirm_password" layoutX="33.0" layoutY="170.0" prefHeight="30.0" prefWidth="220.0" promptText="Confirm Password" styleClass="textfield" />
+        </AnchorPane>
+        <AnchorPane fx:id="register_account_section" prefHeight="400.0" prefWidth="300.0" styleClass="white-form">
+            <Label layoutX="33.0" layoutY="65.0" styleClass="header-label" text="Register Account">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <TextField fx:id="register_account_username" layoutX="33.0" layoutY="112.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" />
+            <PasswordField fx:id="register_account_password" layoutX="33.0" layoutY="157.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" />
+            <Button fx:id="create_account_button" layoutX="33.0" layoutY="306.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" text="Create Account" />
+            <ComboBox fx:id="register_account_question" layoutX="33.0" layoutY="202.0" prefHeight="30.0" prefWidth="220.0" promptText="Question" styleClass="textfield" />
+            <TextField fx:id="register_account_answer" layoutX="33.0" layoutY="246.0" prefHeight="30.0" prefWidth="220.0" promptText="Answer" styleClass="textfield" />
+        </AnchorPane>
+        <AnchorPane fx:id="side_form" layoutX="-1.0" prefHeight="400.0" prefWidth="300.0" styleClass="gradient">
+            <Label layoutX="89.0" layoutY="305.0" text="Create Account">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <Button fx:id="side_create_account_button" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Create New Account" />
+            <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" layoutX="86.0" layoutY="182.0" size="10em" />
+            <Label layoutX="77.0" layoutY="200.0" text="Cafe Shop Management">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Button fx:id="side_already_have_an_account" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="createAccountButton" text="Already have an account" visible="false" />
+        </AnchorPane>
+    </AnchorPane>
 </StackPane>
