@@ -1,21 +1,26 @@
 package com.example.cafeshopmanagement.Controller;
 
+import com.example.cafeshopmanagement.App;
 import com.example.cafeshopmanagement.Database.Database;
+import com.example.cafeshopmanagement.Model.UserDetail;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -107,11 +112,23 @@ public class LoginController implements Initializable {
                 preparedStatement.setString(2, login_password.getText());
                 resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
+                    UserDetail.setUsername(login_username.getText());
+
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("InformationMessage");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Login!");
                     alert.showAndWait();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXML/Main.fxml"));
+                    Stage stage =  new Stage();
+                    Scene scene = new Scene(fxmlLoader.load());
+                    stage.setScene(scene);
+                    stage.setTitle("Cafe Shop Management");
+                    stage.setMinHeight(800);
+                    stage.setMinWidth(1280);
+                    stage.show();
+                    login_button.getScene().getWindow().hide();
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
@@ -119,7 +136,7 @@ public class LoginController implements Initializable {
                     alert.setContentText("Incorrect Username/Password");
                     alert.showAndWait();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
