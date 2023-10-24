@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5ddef2a2-bac1-4dcc-b873-5ed0ecde15d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cafeShopManagement.db" beforeDir="false" afterPath="$PROJECT_DIR$/cafeShopManagement.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cafeShopManagement.db-journal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cafeShopManagement.sqbpro" beforeDir="false" afterPath="$PROJECT_DIR$/cafeShopManagement.sqbpro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cafeShopManagement.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/cafeShopManagement.db-wal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/ProductData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/ProductData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/UserDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/UserDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/FXML/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/FXML/Main.fxml" afterDir="false" />
     </list>
@@ -48,28 +44,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;SQL Dialects&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "SQL Dialects",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Hp\Desktop\Projects\JavaFX\CafeShopManagement" />
@@ -94,7 +91,7 @@
       <workItem from="1697730708345" duration="809000" />
       <workItem from="1697988043552" duration="5326000" />
       <workItem from="1698049725867" duration="5900000" />
-      <workItem from="1698137874808" duration="6007000" />
+      <workItem from="1698137874808" duration="15921000" />
     </task>
     <servers />
   </component>

@@ -121,8 +121,110 @@ public class MainController implements Initializable {
                     preparedStatement.executeUpdate();
 
                     inventoryShowData();
-                    getSuccessAlert();
+                    getSuccessAlert("Successfully Added!");
                     inventoryClearBtn();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void inventoryDeleteBtn() {
+        if (product_id_textfield.getText().isEmpty()
+                || product_name_textfield.getText().isEmpty()
+                || stock_textfield.getText().isEmpty()
+                || price_textfield.getText().isEmpty()
+                || type_combobox.getSelectionModel().getSelectedItem() == null
+                || status_combobox.getSelectionModel().getSelectedItem() == null
+                || UserDetail.getPath() == null
+                || UserDetail.getId() == 0
+        ) {
+
+            loginController.fillAllFieldError();
+        } else {
+            String deleteData = "DELETE FROM Product WHERE id = ?";
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to Delete product with ID: " + product_id_textfield.getText() + "?");
+            connection = Database.connectionDB();
+            Optional<ButtonType> optional = alert.showAndWait();
+
+            if (optional.get().equals(ButtonType.OK)) {
+                try {
+                    preparedStatement = connection.prepareStatement(deleteData);
+                    preparedStatement.setString(1, String.valueOf(UserDetail.getId()));
+                    preparedStatement.executeUpdate();
+
+                    getSuccessAlert("Successfully Deleted!");
+
+                    inventoryShowData();
+                    inventoryClearBtn();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+            else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Cancelled");
+                alert.showAndWait();
+            }
+
+        }
+    }
+    public void inventoryUpdateBtn() {
+        if (product_id_textfield.getText().isEmpty()
+                || product_name_textfield.getText().isEmpty()
+                || stock_textfield.getText().isEmpty()
+                || price_textfield.getText().isEmpty()
+                || type_combobox.getSelectionModel().getSelectedItem() == null
+                || status_combobox.getSelectionModel().getSelectedItem() == null
+                || UserDetail.getPath() == null
+                || UserDetail.getId() == 0
+        ) {
+
+            loginController.fillAllFieldError();
+        } else {
+            String path = UserDetail.getPath();
+//            path = path.replace("\\", "\\\\");
+            String updataData = "UPDATE Product SET product_id = ?, product_name=?, type=?, stock=?, price =?, status=?, image=?, date=? WHERE id= ?";
+            connection = Database.connectionDB();
+            Date date = new Date();
+            java.sql.Date _date = new java.sql.Date(date.getTime());
+            try {
+                preparedStatement = connection.prepareStatement(updataData);
+                preparedStatement.setString(1, product_id_textfield.getText());
+                preparedStatement.setString(2, product_name_textfield.getText());
+                preparedStatement.setString(3, type_combobox.getSelectionModel().getSelectedItem());
+                preparedStatement.setString(4, stock_textfield.getText());
+                preparedStatement.setString(5, price_textfield.getText());
+                preparedStatement.setString(6, status_combobox.getSelectionModel().getSelectedItem());
+                preparedStatement.setString(7, path);
+                preparedStatement.setString(8, String.valueOf(_date));
+                preparedStatement.setString(9, String.valueOf(UserDetail.getId()));
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to Update product with ID: " + product_id_textfield.getText());
+
+                Optional<ButtonType> optional = alert.showAndWait();
+                if (optional.get().equals(ButtonType.OK)) {
+                    preparedStatement.executeUpdate();
+                    inventoryShowData();
+                    getSuccessAlert("Successfully Updated!");
+                    inventoryClearBtn();
+                }
+                else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Cancelled");
+                    alert.showAndWait();
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -220,11 +322,11 @@ public class MainController implements Initializable {
         username.setText(user);
     }
 
-    public void getSuccessAlert() {
+    public void getSuccessAlert(String message) {
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText(null);
-        alert.setContentText("Successfully Added!");
+        alert.setContentText(message);
         alert.showAndWait();
     }
 
@@ -236,9 +338,28 @@ public class MainController implements Initializable {
         price_textfield.setText("");
         status_combobox.getSelectionModel().clearSelection();
         UserDetail.setPath("");
+        display_selected_image.setImage(null);
+        UserDetail.setId(0);
     }
 
     public void inventorySelectedData(){
+        ProductData productData = inventory_tableview.getSelectionModel().getSelectedItem();
+        int getIndex = inventory_tableview.getSelectionModel().getSelectedIndex();
+
+        if ((getIndex - 1) < -1) {
+            return;
+        }
+        product_id_textfield.setText(productData.getProductId());
+        product_name_textfield.setText(productData.getProductName());
+        type_combobox.setValue(productData.getType());
+        stock_textfield.setText(String.valueOf(productData.getStock()));
+        price_textfield.setText(String.valueOf(productData.getPrice()));
+        status_combobox.setValue(productData.getStatus());
+
+        UserDetail.setPath("File:" + productData.getImage());
+        UserDetail.setDate(productData.getDate());
+        UserDetail.setId(productData.getId());
+        display_selected_image.setImage(new Image(UserDetail.getPath()));
 
     }
     @Override
@@ -250,6 +371,8 @@ public class MainController implements Initializable {
         inventoryShowData();
         choose_image_button.setOnAction(event -> inventoryImportBtn());
         add_button.setOnAction(event -> inventoryAddBtn());
+        update_button.setOnAction(event -> inventoryUpdateBtn());
+        delete_button.setOnAction(event -> inventoryDeleteBtn());
     }
 
 
