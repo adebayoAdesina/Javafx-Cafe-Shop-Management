@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cafeshopmanagement.Controller.MainController">
-   <AnchorPane prefHeight="200.0" prefWidth="200.0">
+   <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
       <BorderPane layoutX="106.0" layoutY="57.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <AnchorPane prefHeight="600.0" prefWidth="223.0" BorderPane.alignment="CENTER">
@@ -213,7 +213,7 @@
                            <String fx:value="radius" />
                            <String fx:value="shadow" />
                         </styleClass>
-                        <ImageView fx:id="display_selected_image" fitHeight="184.0" fitWidth="191.0" layoutX="-6.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="display_selected_image" fitHeight="184.0" fitWidth="191.0" layoutX="-6.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </AnchorPane>
                      <Button fx:id="choose_image_button" layoutX="866.0" layoutY="207.0" mnemonicParsing="false" styleClass="btn" text="Choose Image" />
                      <Button fx:id="add_button" layoutX="140.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="87.0" styleClass="btn" text="Add" />

@@ -1,8 +1,7 @@
 package com.example.cafeshopmanagement.Model;
 
-import javafx.scene.chart.PieChart;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ProductData {
     private Integer id;
@@ -13,7 +12,7 @@ public class ProductData {
     private Double price;
     private String status;
     private String image;
-    private Date date;
+    private String dates;
 
     public ProductData(
             Integer id,
@@ -24,7 +23,7 @@ public class ProductData {
             Double price,
             String status,
             String image,
-            Date date
+            String date
     ) {
         this.id = id;
         this.productId = productId;
@@ -34,7 +33,7 @@ public class ProductData {
         this.price = price;
         this.status = status;
         this.image = image;
-        this.date = date;
+        this.dates = date;
     }
 
     public Integer getId() {
@@ -69,7 +68,7 @@ public class ProductData {
         return image;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return dates;
     }
 }

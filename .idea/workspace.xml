@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="5ddef2a2-bac1-4dcc-b873-5ed0ecde15d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cafeShopManagement.db" beforeDir="false" afterPath="$PROJECT_DIR$/cafeShopManagement.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cafeShopManagement.db-journal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cafeShopManagement.sqbpro" beforeDir="false" afterPath="$PROJECT_DIR$/cafeShopManagement.sqbpro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/ProductData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/ProductData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/UserDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cafeshopmanagement/Model/UserDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/FXML/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cafeshopmanagement/FXML/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +92,9 @@
       <workItem from="1697645213612" duration="2236000" />
       <workItem from="1697703191337" duration="14628000" />
       <workItem from="1697730708345" duration="809000" />
-      <workItem from="1697988043552" duration="4912000" />
+      <workItem from="1697988043552" duration="5326000" />
+      <workItem from="1698049725867" duration="5900000" />
+      <workItem from="1698137874808" duration="6007000" />
     </task>
     <servers />
   </component>
