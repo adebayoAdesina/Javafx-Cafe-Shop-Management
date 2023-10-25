@@ -6,14 +6,17 @@ import com.example.cafeshopmanagement.Model.ProductData;
 import com.example.cafeshopmanagement.Model.UserDetail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -57,6 +60,20 @@ public class MainController implements Initializable {
     public Button clear_button;
     public ComboBox<String> status_combobox;
     public AnchorPane main_form;
+    public ScrollPane menu_scroll_pane;
+    public GridPane menu_grid_pane;
+    public AnchorPane menu_section;
+    public TableView menu_table_view;
+    public TableColumn menu_product_name;
+    public TableColumn menu_price;
+    public TableColumn menu_quantity;
+    public Label menu_total;
+    public TextField menu_amount_textfield;
+    public Label menu_change;
+    public Button menu_pay_btn;
+    public Button menu_remove_btn;
+    public Button menu_receipt_btn;
+    public AnchorPane dashboard_section;
 
     private Alert alert;
 
@@ -75,8 +92,72 @@ public class MainController implements Initializable {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private final ObservableList<ProductData> cardListData = FXCollections.observableArrayList();
 
     LoginController loginController = new LoginController();
+
+    public ObservableList<ProductData> menuGetData() {
+        String sql = "SELECT * FROM Product";
+        connection = Database.connectionDB();
+        ObservableList<ProductData> listData = FXCollections.observableArrayList();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            ProductData productData;
+
+            while (resultSet.next()) {
+                productData = new ProductData(
+                        resultSet.getInt("id"),
+                        resultSet.getString("product_id"),
+                        resultSet.getString("product_name"),
+                        resultSet.getString("type"),
+                        resultSet.getInt("stock"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("status"),
+                        resultSet.getString("image"),
+                        resultSet.getString("date")
+                );
+                listData.add(productData);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listData;
+    }
+
+
+    public void menuDisplayCard() {
+
+        cardListData.clear();
+        cardListData.addAll(menuGetData());
+
+        int row = 0;
+        int column = 0;
+
+        menu_grid_pane.getRowConstraints().clear();
+        menu_grid_pane.getColumnConstraints().clear();
+        menu_grid_pane.getChildren().clear();
+
+        for (ProductData cardListDatum : cardListData) {
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXML/CardProduct.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                CardProductController cardProductController = fxmlLoader.getController();
+                cardProductController.setData(cardListDatum);
+
+                if (column == 3) {
+                    column = 0;
+                    row += 1;
+                }
+                column++;
+                menu_grid_pane.add(anchorPane, column, row);
+                GridPane.setMargin(anchorPane, new Insets(10));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     public void inventoryAddBtn() {
         if (product_id_textfield.getText().isEmpty()
@@ -84,7 +165,7 @@ public class MainController implements Initializable {
                 || stock_textfield.getText().isEmpty()
                 || price_textfield.getText().isEmpty()
                 || type_combobox.getSelectionModel().getSelectedItem() == null
-                 || status_combobox.getSelectionModel().getSelectedItem() == null
+                || status_combobox.getSelectionModel().getSelectedItem() == null
                 || UserDetail.getPath() == null
         ) {
 
@@ -101,8 +182,7 @@ public class MainController implements Initializable {
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
                     alert.setContentText(product_id_textfield.getText() + "already exist");
-                }
-                else {
+                } else {
                     String insertData = "INSERT INTO Product (product_id, product_name, type, stock, price, status, image, date) VALUES(?,?,?,?,?,?,?,?)";
                     Date date = new Date();
                     java.sql.Date _date = new java.sql.Date(date.getTime());
@@ -166,8 +246,7 @@ public class MainController implements Initializable {
                 }
 
 
-            }
-            else {
+            } else {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -177,6 +256,7 @@ public class MainController implements Initializable {
 
         }
     }
+
     public void inventoryUpdateBtn() {
         if (product_id_textfield.getText().isEmpty()
                 || product_name_textfield.getText().isEmpty()
@@ -218,8 +298,7 @@ public class MainController implements Initializable {
                     inventoryShowData();
                     getSuccessAlert("Successfully Updated!");
                     inventoryClearBtn();
-                }
-                else {
+                } else {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
@@ -243,6 +322,7 @@ public class MainController implements Initializable {
             display_selected_image.setImage(image);
         }
     }
+
     ObservableList<String> observableStatus = FXCollections.observableArrayList(status);
 
     public ObservableList<ProductData> inventoryDataList() {
@@ -272,7 +352,9 @@ public class MainController implements Initializable {
             throw new RuntimeException(e);
         }
         return listData;
-    };
+    }
+
+    ;
 
     private ObservableList<ProductData> inventoryListData;
 
@@ -289,6 +371,7 @@ public class MainController implements Initializable {
         inventory_tableview.setItems(inventoryListData);
 
     }
+
     public void logout() {
 
         alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -330,7 +413,7 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
-    public  void inventoryClearBtn(){
+    public void inventoryClearBtn() {
         product_id_textfield.setText("");
         product_name_textfield.setText("");
         type_combobox.getSelectionModel().clearSelection();
@@ -342,7 +425,7 @@ public class MainController implements Initializable {
         UserDetail.setId(0);
     }
 
-    public void inventorySelectedData(){
+    public void inventorySelectedData() {
         ProductData productData = inventory_tableview.getSelectionModel().getSelectedItem();
         int getIndex = inventory_tableview.getSelectionModel().getSelectedIndex();
 
@@ -362,6 +445,29 @@ public class MainController implements Initializable {
         display_selected_image.setImage(new Image(UserDetail.getPath()));
 
     }
+
+    public void switchForm(ActionEvent event) {
+
+        if(event.getSource() == dashboard_button) {
+            dashboard_section.setVisible(true);
+            inventory_form.setVisible(false);
+            menu_section.setVisible(false);
+        } else if (event.getSource() == inventory_button) {
+            dashboard_section.setVisible(false);
+            inventory_form.setVisible(true);
+            menu_section.setVisible(false);
+
+            inventoryShowData();
+
+        } else if (event.getSource() == menu_button) {
+            dashboard_section.setVisible(false);
+            inventory_form.setVisible(false);
+            menu_section.setVisible(true);
+            menuDisplayCard();
+        }
+
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getUsername();
@@ -373,6 +479,8 @@ public class MainController implements Initializable {
         add_button.setOnAction(event -> inventoryAddBtn());
         update_button.setOnAction(event -> inventoryUpdateBtn());
         delete_button.setOnAction(event -> inventoryDeleteBtn());
+        clear_button.setOnAction(event -> inventoryClearBtn());
+        menuDisplayCard();
     }
 
 

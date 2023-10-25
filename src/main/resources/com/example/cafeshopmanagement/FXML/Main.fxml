@@ -17,6 +17,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
@@ -43,10 +45,10 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="dashboard_button" alignment="CENTER" layoutX="8.0" layoutY="158.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Dashboard" />
-                  <Button fx:id="inventory_button" alignment="CENTER" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Inventory" />
-                  <Button fx:id="menu_button" alignment="CENTER" layoutX="9.0" layoutY="274.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Menu" />
-                  <Button fx:id="customers_button" alignment="CENTER" layoutX="9.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Customers" />
+                  <Button fx:id="dashboard_button" alignment="CENTER" layoutX="8.0" layoutY="158.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Dashboard" />
+                  <Button fx:id="inventory_button" alignment="CENTER" layoutX="8.0" layoutY="216.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Inventory" />
+                  <Button fx:id="menu_button" alignment="CENTER" layoutX="9.0" layoutY="274.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Menu" />
+                  <Button fx:id="customers_button" alignment="CENTER" layoutX="9.0" layoutY="332.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" text="Customers" />
                   <Button fx:id="log_out_button" layoutX="9.0" layoutY="561.0" mnemonicParsing="false" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="9.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="SIGN_OUT" size="1.5em" />
@@ -66,7 +68,7 @@
          </left>
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <AnchorPane layoutX="5.0" layoutY="100.0" prefHeight="600.0" prefWidth="872.0" stylesheets="@../Styles/Mainstyle.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <AnchorPane fx:id="dashboard_section" layoutX="5.0" layoutY="100.0" prefHeight="600.0" prefWidth="872.0" stylesheets="@../Styles/Mainstyle.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="169.0" prefWidth="851.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0">
                      <styleClass>
                         <String fx:value="white-background" />
@@ -169,7 +171,7 @@
                   </AnchorPane>
                   <Separator layoutX="14.0" layoutY="192.0" prefHeight="8.0" prefWidth="841.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="192.0" />
                </AnchorPane>
-               <AnchorPane fx:id="inventory_form" layoutX="196.0" layoutY="387.0" prefHeight="800.0" prefWidth="1057.0" stylesheets="@../Styles/Mainstyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <AnchorPane fx:id="inventory_form" layoutX="196.0" layoutY="387.0" prefHeight="800.0" prefWidth="1057.0" stylesheets="@../Styles/Mainstyle.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="386.0" prefWidth="1030.0" AnchorPane.bottomAnchor="401.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="13.0">
                      <styleClass>
                         <String fx:value="shadow" />
@@ -224,6 +226,54 @@
                      <ComboBox fx:id="status_combobox" layoutX="482.0" layoutY="122.0" prefHeight="30.0" prefWidth="250.0" promptText="Choose Status" />
                   </AnchorPane>
                   <Separator layoutX="15.0" layoutY="409.0" prefHeight="1.0" prefWidth="1027.0" AnchorPane.bottomAnchor="388.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+               </AnchorPane>
+               <AnchorPane fx:id="menu_section" layoutX="14.0" layoutY="14.0" prefHeight="800.0" prefWidth="1057.0" stylesheets="@../Styles/Mainstyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="774.0" prefWidth="653.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="14.0">
+                     <styleClass>
+                        <String fx:value="white-background" />
+                        <String fx:value="radius" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <ScrollPane fx:id="menu_scroll_pane" layoutX="14.0" layoutY="12.0" prefHeight="747.0" prefWidth="625.0">
+                        <GridPane fx:id="menu_grid_pane" prefHeight="41.0" prefWidth="100.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </ScrollPane>
+                  </AnchorPane>
+                  <AnchorPane layoutX="688.0" layoutY="14.0" prefHeight="774.0" prefWidth="355.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                     <styleClass>
+                        <String fx:value="white-background" />
+                        <String fx:value="radius" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <TableView fx:id="menu_table_view" layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="330.0">
+                           <columns>
+                              <TableColumn fx:id="menu_product_name" prefWidth="138.0" text="Product Name" />
+                              <TableColumn fx:id="menu_quantity" prefWidth="94.0" text="Quantity" />
+                              <TableColumn fx:id="menu_price" prefWidth="95.0" text="Price" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Label layoutX="140.0" layoutY="411.0" text="Total: " />
+                        <Label fx:id="menu_total" layoutX="178.0" layoutY="411.0" prefHeight="17.0" prefWidth="143.0" text="\$0.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="127.0" layoutY="439.0" text="Amount:" />
+                        <TextField fx:id="menu_amount_textfield" layoutX="179.0" layoutY="435.0" prefHeight="25.0" prefWidth="161.0" promptText="\$0.0" />
+                        <Label layoutX="128.0" layoutY="471.0" text="Change:" />
+                        <Label fx:id="menu_change" layoutX="178.0" layoutY="471.0" prefHeight="17.0" prefWidth="143.0" text="\$0.0" />
+                        <Button fx:id="menu_pay_btn" layoutX="23.0" layoutY="509.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="306.0" styleClass="btn" text="Pay" />
+                        <Button fx:id="menu_remove_btn" layoutX="19.0" layoutY="586.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="149.0" styleClass="btn" text="Remove" />
+                        <Button fx:id="menu_receipt_btn" layoutX="187.0" layoutY="586.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="142.0" styleClass="btn" text="Receipt" />
+                     </children>
+                  </AnchorPane>
                </AnchorPane>
             </AnchorPane>
          </center>
