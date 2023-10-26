@@ -36,7 +36,7 @@
       </AnchorPane>
       <HBox alignment="CENTER" prefHeight="45.0" prefWidth="230.0">
          <Spinner fx:id="card_spinner" prefHeight="27.0" prefWidth="76.0" />
-         <Button fx:id="card_add_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" styleClass="btn" text="Add">
+         <Button fx:id="card_add_btn" mnemonicParsing="false" onAction="#addBtn" prefHeight="30.0" prefWidth="88.0" styleClass="btn" text="Add">
             <HBox.margin>
                <Insets left="10.0" />
             </HBox.margin></Button>

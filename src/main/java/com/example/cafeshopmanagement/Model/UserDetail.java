@@ -6,6 +6,7 @@ public class UserDetail {
     private static String path;
     private static String date;
     private static Integer id;
+    private static Integer customerID;
 
     public static String getUsername() {
         return username;
@@ -37,5 +38,13 @@ public class UserDetail {
 
     public static Integer getId() {
         return id;
+    }
+
+    public static Integer getCustomerID() {
+        return customerID;
+    }
+
+    public static void setCustomerID(Integer customerID) {
+        UserDetail.customerID = customerID;
     }
 }

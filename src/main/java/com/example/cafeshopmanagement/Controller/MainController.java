@@ -159,6 +159,40 @@ public class MainController implements Initializable {
         }
     }
 
+    private int customerID;
+
+    public void getCustomerID(){
+        String sql ="SELECT MAX(customer_id) FROM Customer";
+        connection = Database.connectionDB();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                customerID = resultSet.getInt("MAX(customer_id)");
+            }
+
+            String checkCustomersID = "SELECT MAX(customer_id) FROM Receipt";
+            preparedStatement = connection.prepareStatement(checkCustomersID);
+            resultSet = preparedStatement.executeQuery();
+            int checkID = 0;
+            if(resultSet.next()){
+                checkID = resultSet.getInt("MAX(customer_id)");
+            }
+
+            if(customerID == 0) {
+                customerID+=1;
+            }
+
+            else if (customerID == checkID) {
+                customerID += 1;
+            }
+
+            UserDetail.setCustomerID(customerID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void inventoryAddBtn() {
         if (product_id_textfield.getText().isEmpty()
                 || product_name_textfield.getText().isEmpty()
@@ -183,6 +217,7 @@ public class MainController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText(product_id_textfield.getText() + "already exist");
                 } else {
+
                     String insertData = "INSERT INTO Product (product_id, product_name, type, stock, price, status, image, date) VALUES(?,?,?,?,?,?,?,?)";
                     Date date = new Date();
                     java.sql.Date _date = new java.sql.Date(date.getTime());
