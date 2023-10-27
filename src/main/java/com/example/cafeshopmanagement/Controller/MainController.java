@@ -2,6 +2,7 @@ package com.example.cafeshopmanagement.Controller;
 
 import com.example.cafeshopmanagement.App;
 import com.example.cafeshopmanagement.Database.Database;
+import com.example.cafeshopmanagement.Model.CustomerModel;
 import com.example.cafeshopmanagement.Model.ProductData;
 import com.example.cafeshopmanagement.Model.UserDetail;
 import javafx.collections.FXCollections;
@@ -63,10 +64,10 @@ public class MainController implements Initializable {
     public ScrollPane menu_scroll_pane;
     public GridPane menu_grid_pane;
     public AnchorPane menu_section;
-    public TableView menu_table_view;
-    public TableColumn menu_product_name;
-    public TableColumn menu_price;
-    public TableColumn menu_quantity;
+    public TableView<CustomerModel> menu_table_view;
+    public TableColumn<CustomerModel, String> menu_product_name;
+    public TableColumn<CustomerModel, String> menu_price;
+    public TableColumn<CustomerModel, String> menu_quantity;
     public Label menu_total;
     public TextField menu_amount_textfield;
     public Label menu_change;
@@ -93,7 +94,7 @@ public class MainController implements Initializable {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private final ObservableList<ProductData> cardListData = FXCollections.observableArrayList();
-
+//    private final ObservableList<CustomerModel> tableListData = FXCollections.observableArrayList();
     LoginController loginController = new LoginController();
 
     public ObservableList<ProductData> menuGetData() {
@@ -161,6 +162,73 @@ public class MainController implements Initializable {
 
     private int customerID;
 
+    private ObservableList<CustomerModel> menuListData;
+    public void menuShowData(){
+        menuListData = menuDisplayOrder();
+        menu_product_name.setCellValueFactory(new PropertyValueFactory<>("product_name"));
+        menu_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        menu_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        menu_table_view.setItems(menuListData);
+    }
+
+    private String totalPrice = "";
+    public void menuGetTotal(){
+
+        String total = "SELECT SUM(price) FROM Customer WHERE em_username = ?";
+        connection = Database.connectionDB();
+        String user = UserDetail.getUsername();
+
+        try{
+            preparedStatement = connection.prepareStatement(total);
+            preparedStatement.setString(1, user);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                totalPrice = resultSet.getString("SUM(price)");
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void menuDisplayTotal(){
+        menuGetTotal();
+        menu_total.setText("$" + totalPrice);
+
+    }
+
+    public ObservableList<CustomerModel> menuDisplayOrder() {
+        ObservableList<CustomerModel> listData = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM Customer";
+        connection = Database.connectionDB();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            CustomerModel customerModel;
+
+            while(resultSet.next()) {
+                customerModel = new CustomerModel(
+                       resultSet.getInt("id"),
+                       resultSet.getString("customer_id"),
+                       resultSet.getString("product_id"),
+                        resultSet.getString("product_name"),
+                        resultSet.getString("quantity"),
+                        resultSet.getString("price"),
+                        resultSet.getString("date"),
+                        resultSet.getString("em_username")
+                ) ;
+//                System.out.println(customerModel.getId());
+                listData.add(customerModel);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listData;
+    }
     public void getCustomerID(){
         String sql ="SELECT MAX(customer_id) FROM Customer";
         connection = Database.connectionDB();
@@ -499,6 +567,10 @@ public class MainController implements Initializable {
             inventory_form.setVisible(false);
             menu_section.setVisible(true);
             menuDisplayCard();
+            menuDisplayOrder();
+            menuDisplayTotal();
+            menuShowData();
+
         }
 
 
@@ -516,6 +588,9 @@ public class MainController implements Initializable {
         delete_button.setOnAction(event -> inventoryDeleteBtn());
         clear_button.setOnAction(event -> inventoryClearBtn());
         menuDisplayCard();
+        menuDisplayOrder();
+        menuDisplayTotal();
+        menuShowData();
     }
 
 

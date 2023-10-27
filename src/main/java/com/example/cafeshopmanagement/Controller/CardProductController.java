@@ -62,6 +62,30 @@ public class CardProductController implements Initializable {
         String checkAvailable = "SELECT status FROM Product WHERE product_id = ?";
         connection = Database.connectionDB();
         try {
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+            int checkStck = 0;
+            String checkStock = "SELECT stock FROM Product WHERE product_name = ?";
+
+            preparedStatement = connection.prepareStatement(checkStock);
+            preparedStatement.setString(1, card_product_name.getText());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                checkStck = resultSet.getInt("stock");
+
+            }
+
+            if (checkStck == 0) {
+                String updateStock = "UPDATE Product SET status = ? WHERE product_id = ?";
+                preparedStatement = connection.prepareStatement(updateStock);
+                preparedStatement.setString(1, "Unavailable");
+                preparedStatement.setString(2, productID);
+                preparedStatement.executeUpdate();
+            }
+
+
             preparedStatement = connection.prepareStatement(checkAvailable);
             preparedStatement.setString(1, productID);
             resultSet = preparedStatement.executeQuery();
@@ -75,20 +99,7 @@ public class CardProductController implements Initializable {
                 alert.setContentText("Something went wrong");
                 alert.showAndWait();
             } else {
-                Date date = new Date();
-                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-                int checkStck = 0;
-                String checkStock = "SELECT stock FROM Product WHERE product_name = ?";
-
-                preparedStatement = connection.prepareStatement(checkStock);
-                preparedStatement.setString(1, card_product_name.getText());
-                resultSet = preparedStatement.executeQuery();
-
-                if (resultSet.next()) {
-                    checkStck = resultSet.getInt("stock");
-
-                }
                 if (checkStck < card_spinner.getValue()) {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
@@ -96,15 +107,16 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Invalid. This product is out of stock");
                     alert.showAndWait();
                 } else {
-                    String insertData = "INSERT INTO Customer (customer_id, product_name, quantity, price, date, em_username) VALUES(?,?,?,?,?,?)";
+                    String insertData = "INSERT INTO Customer (customer_id, product_id, product_name, quantity, price, date, em_username) VALUES(?,?,?,?,?,?,?)";
                     preparedStatement = connection.prepareStatement(insertData);
                     preparedStatement.setString(1, String.valueOf(UserDetail.getCustomerID()));
-                    preparedStatement.setString(2, card_product_name.getText());
-                    preparedStatement.setString(3, card_spinner.getValue().toString());
+                    preparedStatement.setString(2, productID);
+                    preparedStatement.setString(3, card_product_name.getText());
+                    preparedStatement.setString(4, card_spinner.getValue().toString());
                     total = (quantity * pr);
-                    preparedStatement.setString(4, String.valueOf(total));
-                    preparedStatement.setString(5, String.valueOf(sqlDate));
-                    preparedStatement.setString(6, UserDetail.getUsername());
+                    preparedStatement.setString(5, String.valueOf(total));
+                    preparedStatement.setString(6, String.valueOf(sqlDate));
+                    preparedStatement.setString(7, UserDetail.getUsername());
 
                     preparedStatement.executeUpdate();
 
@@ -128,6 +140,9 @@ public class CardProductController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
+
+
+                    mainController.menuGetTotal();
                 }
 
             }
