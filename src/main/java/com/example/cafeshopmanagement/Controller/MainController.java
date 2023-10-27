@@ -198,13 +198,104 @@ public class MainController implements Initializable {
         menu_total.setText("$" + totalPrice);
 
     }
+    private double change;
+    private double amount;
+    private double tPrice;
+    public void menuAmount() {
+        menuGetTotal();
+        if (menu_amount_textfield.getText().isEmpty() || totalPrice.equals("0")) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid :3");
+            alert.showAndWait();
+        } else{
+            amount = Double.parseDouble(menu_amount_textfield.getText());
+ tPrice= Double.parseDouble(totalPrice);
 
+            if (amount < tPrice) {
+                menu_amount_textfield.setText("");
+            }
+            else{
+                change = (amount - tPrice);
+                menu_change.setText("$" + change);
+            }
+        }
+    }
+
+    public void menuPayBtn() {
+        if (tPrice ==0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose your order first!");
+            alert.showAndWait();
+        } else {
+            String insertPay = "INSERT INTO Receipt (customer_id, total, date, em_username) VALUES(?,?,?,?)";
+            connection = Database.connectionDB();
+            try{
+                if (amount ==0) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Invalid :2");
+                    alert.showAndWait();
+                }
+                Date date = new Date();
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure?");
+                Optional<ButtonType> optional = alert.showAndWait();
+                if (optional.get().equals(ButtonType.OK)) {
+
+                    preparedStatement = connection.prepareStatement(insertPay);
+                    preparedStatement.setString(1, String.valueOf(customerID));
+                    preparedStatement.setString(2, String.valueOf(tPrice));
+                    preparedStatement.setString(3, String.valueOf(sqlDate));
+                    preparedStatement.setString(4, UserDetail.getUsername());
+                    preparedStatement.executeUpdate();
+                    menuShowData();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successful.");
+                    alert.showAndWait();
+
+                    menuShowData();
+                    menuRestart();
+                }else {
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("An error occur.");
+                    alert.showAndWait();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void menuRestart(){
+        tPrice = 0;
+        change = 0;
+        amount = 0;
+        menu_amount_textfield.setText("$0.0");
+        menu_total.setText("");
+        menu_change.setText("$0.0");
+
+    }
     public ObservableList<CustomerModel> menuDisplayOrder() {
+        getCustomerID();
         ObservableList<CustomerModel> listData = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM Customer";
+        String sql = "SELECT * FROM Customer WHERE customer_id = ?";
         connection = Database.connectionDB();
         try {
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(customerID));
             resultSet = preparedStatement.executeQuery();
 
             CustomerModel customerModel;
@@ -220,7 +311,6 @@ public class MainController implements Initializable {
                         resultSet.getString("date"),
                         resultSet.getString("em_username")
                 ) ;
-//                System.out.println(customerModel.getId());
                 listData.add(customerModel);
             }
 

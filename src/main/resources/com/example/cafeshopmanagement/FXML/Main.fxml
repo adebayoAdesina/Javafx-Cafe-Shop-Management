@@ -266,10 +266,10 @@
                            </font>
                         </Label>
                         <Label layoutX="127.0" layoutY="439.0" text="Amount:" />
-                        <TextField fx:id="menu_amount_textfield" layoutX="179.0" layoutY="435.0" prefHeight="25.0" prefWidth="161.0" promptText="\$0.0" />
+                        <TextField fx:id="menu_amount_textfield" layoutX="179.0" layoutY="435.0" onAction="#menuAmount" prefHeight="25.0" prefWidth="161.0" promptText="\$0.0" />
                         <Label layoutX="128.0" layoutY="471.0" text="Change:" />
                         <Label fx:id="menu_change" layoutX="178.0" layoutY="471.0" prefHeight="17.0" prefWidth="143.0" text="\$0.0" />
-                        <Button fx:id="menu_pay_btn" layoutX="23.0" layoutY="509.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="306.0" styleClass="btn" text="Pay" />
+                        <Button fx:id="menu_pay_btn" layoutX="23.0" layoutY="509.0" mnemonicParsing="false" onAction="#menuPayBtn" prefHeight="44.0" prefWidth="306.0" styleClass="btn" text="Pay" />
                         <Button fx:id="menu_remove_btn" layoutX="19.0" layoutY="586.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="149.0" styleClass="btn" text="Remove" />
                         <Button fx:id="menu_receipt_btn" layoutX="187.0" layoutY="586.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="142.0" styleClass="btn" text="Receipt" />
                      </children>
